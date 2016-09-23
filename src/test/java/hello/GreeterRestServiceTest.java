@@ -17,7 +17,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  */
 
 @RunWith(SpringRunner.class)
-@SpringBootTest
+@SpringBootTest(properties = {"greeter.message=Hello, %s !"})
 @AutoConfigureMockMvc
 public class GreeterRestServiceTest{
 
