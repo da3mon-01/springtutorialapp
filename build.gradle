@@ -8,7 +8,8 @@ buildscript {
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-        classpath('io.spring.gradle:dependency-management-plugin:0.5.4.RELEASE')
+        classpath('io.spring.gradle:dependency-management-plugin:0.6.1.RELEASE')
+        classpath('se.transmode.gradle:gradle-docker:1.2')
     }
 }
 
@@ -16,13 +17,14 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
+apply plugin: 'docker'
 
-group 'com.daemon'
+group 'daemon'
 version '1.0-SNAPSHOT'
 
 jar {
     baseName = 'springtutorialapp'
-    version =  '0.1.0'
+    version =  '0.2.0'
 }
 
 repositories {
@@ -42,6 +44,18 @@ dependencies {
 
 dependencyManagement {
     imports {
-        mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Brixton.SR6'
+        mavenBom 'org.springframework.cloud:spring-cloud-dependencies:Camden.RELEASE'
+    }
+}
+
+task buildDocker(type: Docker, dependsOn: build){
+    push = false
+    applicationName = jar.baseName
+    dockerfile = file('src/main/docker/Dockerfile')
+    doFirst{
+        copy{
+            from jar
+            into stageDir
+        }
     }
 }
