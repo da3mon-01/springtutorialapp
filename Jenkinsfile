@@ -8,6 +8,6 @@ node {
     sh 'gradle test'
   }
   stage('Archiving Artifacts'){
-   archive 'build/libs/*.jar' 
+   archiveArtifacts artifacts: 'build/libs/*.jar', fingerprint: true
   }
  }
