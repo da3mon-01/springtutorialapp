@@ -11,7 +11,7 @@ node {
    archiveArtifacts artifacts: 'build/libs/*.jar', fingerprint: true
   }
   env.PATH = "${tool 'docker'}/bin:${env:PATH}"
-  docker.withServer('10.0.2.15:2375/v1.22/'){
+  docker.withServer('10.0.2.15:2375/'){
     stage('Build Docker Image'){
      def tutorialapp = docker.build("da3mon/tutorialapp:${env.BUILD_TAG}")
     }
