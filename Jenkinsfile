@@ -10,4 +10,9 @@ node {
   stage('Archiving Artifacts'){
    archiveArtifacts artifacts: 'build/libs/*.jar', fingerprint: true
   }
+  stage('Build Docker Image'){
+    docker.withServer('10.0.2.15:2375'){
+     def tutorialapp = docker.build "da3mon/tutorialapp:${env.BUILD_TAG}" 
+    }
+  }
  }
