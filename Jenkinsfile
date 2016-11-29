@@ -7,4 +7,7 @@ node {
   stage('Test'){
     sh 'gradle test'
   }
+  stage('Archiving Artifacts'){
+   archive 'build/libs/*.jar' 
+  }
  }
