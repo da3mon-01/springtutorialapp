@@ -12,6 +12,7 @@ node {
   }
   docker.withServer('10.0.2.15:2375'){
     stage('Build Docker Image'){
+     env.PATH = "${tool 'docker'}/bin:${env:PATH}"
      def tutorialapp = docker.build("da3mon/tutorialapp:${env.BUILD_TAG}")
     }
   }
