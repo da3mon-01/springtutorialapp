@@ -1,7 +1,8 @@
 node {
-  env.PATH = "${tool name: 'docker', type: 'org.jenkinsci.plugins.docker.commons.tools.DockerTool'}/bin:${env:PATH}"
+  def dockerHome = tool name: 'docker', type: 'org.jenkinsci.plugins.docker.commons.tools.DockerTool'
+  def gradleHome = tool name: 'Gradle', type: 'hudson.plugins.gradle.GradleInstallation'
+  env.PATH = "${dockerHome}/bin:${dockerHome}/bin:${env.PATH}"
   stage('Build'){
-    env.PATH = "${tool name: 'Gradle', type: 'hudson.plugins.gradle.GradleInstallation''}/bin:${env.PATH}"
     checkout scm
     sh 'gradle clean build -x test'
   }
